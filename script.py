@@ -1334,21 +1334,21 @@ def main1():
     t4.join()
     t5.join()
     t6.join()
-    files = {'document':open('new_1_hour_Double_top_new_open.csv','rb')}
+    files = {'document':open('new_1_hour_Double_bottom_new_close.csv','rb')}
     todays = datetime.datetime.now()
     today = todays.strftime('%Y-%m-%d %H:%M:%S')
     resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
     print("documents sent",resp.status_code)
 
-    files = {'document':open('new_1_hour_Double_top_new_high.csv','rb')}
+    files = {'document':open('new_1_hour_Double_bottom_new_low.csv','rb')}
     resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
     print("documents sent",resp.status_code)
 
-    files = {'document':open('new_half_anhour_Double_top_new_high.csv','rb')}
+    files = {'document':open('new_half_an_hour_Double_bottom_new_close.csv','rb')}
     resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
     print("documents sent",resp.status_code)
 
-    files = {'document':open('new_half_anhour_Double_top_new_open.csv','rb')}
+    files = {'document':open('new_half_an_hour_Double_bottom_new_low.csv','rb')}
     resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
     print("documents sent",resp.status_code)
 
@@ -1356,11 +1356,11 @@ def main1():
     Time = Time.strftime('%H:%M:%S')
 
     if(Time>='15:10:00'):
-        files = {'document':open('new_1_day_Double_top_new_high.csv','rb')}
+        files = {'document':open('new_1_day_Double_bottom_new_close.csv','rb')}
         resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
         print("documents sent",resp.status_code)
 
-        files = {'document':open('new_1_day_Double_top_new_open.csv','rb')}
+        files = {'document':open('new_1_day_Double_bottom_new_low.csv','rb')}
         resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
         print("documents sent",resp.status_code)
 
