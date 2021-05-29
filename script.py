@@ -1293,7 +1293,6 @@ def main1():
 
     print(profile)
     enctoken = open('enctoken.txt', 'r').read().rstrip()
-    kite = KiteExt()
 
     print(enctoken)
     #code whatever logic you want for the running here
