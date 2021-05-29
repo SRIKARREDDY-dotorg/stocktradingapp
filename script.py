@@ -11,46 +11,6 @@ import os
 import numpy as np
 import threading
 import requests
-def main1():
-    
-    print('Running Algo')
-    user = json.loads(open('userzerodha.json', 'r').read().rstrip())
-
-    # NOTE contents of above 'userzerodha.json' must be as below
-    # {
-    #     "user_id": "AB1234",
-    #     "password": "P@ssW0RD",
-    #     "pin": "123456"
-    # }
-
-    kite = KiteExt()
-    kite.login_with_credentials(
-        userid=user['user_id'], password=user['password'], pin=user['pin'])
-
-    profile = kite.profile()
-    print( '\nlogin successful for ',profile['user_name'].upper(),'\n')
-
-    print(profile)
-    enctoken = open('enctoken.txt', 'r').read().rstrip()
-    kite = KiteExt()
-
-    print(enctoken)
-    #code whatever logic you want for the running here
-    kite.set_headers(enctoken)
-    instruments = kite.instruments(exchange="NSE")
-    from datetime import timedelta,time,date
-    import datetime
-    true_range_startdt = datetime.datetime.now() - timedelta(days=200)
-    true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
-    true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
-
-    true_range_enddt = datetime.datetime.now() 
-    true_range_enddt = true_range_enddt.replace(hour = 15,minute=29,second=59)
-    true_range_enddt = true_range_enddt.strftime('%Y-%m-%d %H:%M:%S')
-
-    print(true_range_startdt,true_range_enddt)
-    instrument_df_1 = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/NSE500_tokens.csv")
-    instrument_df = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/New_NSE_145.csv")
     
 
 # %%
@@ -1313,6 +1273,47 @@ def main1():
                     stock.append(key)
         Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
         Double_bottom_new.to_csv("new_half_an_hour_Double_bottom_new_close.csv")
+def main1():
+    
+    print('Running Algo')
+    user = json.loads(open('userzerodha.json', 'r').read().rstrip())
+
+    # NOTE contents of above 'userzerodha.json' must be as below
+    # {
+    #     "user_id": "AB1234",
+    #     "password": "P@ssW0RD",
+    #     "pin": "123456"
+    # }
+
+    kite = KiteExt()
+    kite.login_with_credentials(
+        userid=user['user_id'], password=user['password'], pin=user['pin'])
+
+    profile = kite.profile()
+    print( '\nlogin successful for ',profile['user_name'].upper(),'\n')
+
+    print(profile)
+    enctoken = open('enctoken.txt', 'r').read().rstrip()
+    kite = KiteExt()
+
+    print(enctoken)
+    #code whatever logic you want for the running here
+    kite.set_headers(enctoken)
+    instruments = kite.instruments(exchange="NSE")
+    from datetime import timedelta,time,date
+    import datetime
+    true_range_startdt = datetime.datetime.now() - timedelta(days=200)
+    true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
+    true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
+
+    true_range_enddt = datetime.datetime.now() 
+    true_range_enddt = true_range_enddt.replace(hour = 15,minute=29,second=59)
+    true_range_enddt = true_range_enddt.strftime('%Y-%m-%d %H:%M:%S')
+
+    print(true_range_startdt,true_range_enddt)
+    instrument_df_1 = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/NSE500_tokens.csv")
+    instrument_df = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/New_NSE_145.csv")
+
     t1 = threading.Thread(target=one_hour, args=(instrument_df,))
     t2 = threading.Thread(target=one_hour_1, args=(instrument_df,))
     t3 = threading.Thread(target=half_an_hour, args=(instrument_df,))
