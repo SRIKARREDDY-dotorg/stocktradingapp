@@ -50,8 +50,8 @@ def main1():
     true_range_enddt = true_range_enddt.strftime('%Y-%m-%d %H:%M:%S')
 
     print(true_range_startdt,true_range_enddt)
-    instrument_df_1 = pd.read_csv("NSE500_tokens.csv")
-    instrument_df = pd.read_csv('New_NSE_145.csv')
+    instrument_df_1 = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/NSE500_tokens.csv")
+    instrument_df = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/New_NSE_145.csv")
     
 
 # %%
