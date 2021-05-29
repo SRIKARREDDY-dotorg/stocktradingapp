@@ -32,7 +32,6 @@ def main1():
 
     print(profile)
     enctoken = open('enctoken.txt', 'r').read().rstrip()
-    print(os.getcwd(),enctoken)
     kite = KiteExt()
 
     print(enctoken)
