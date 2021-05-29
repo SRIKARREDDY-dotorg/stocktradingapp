@@ -13,7 +13,7 @@ import requests
     
 
 # %%
-def one_day_1(instrument_df):
+def one_day_1(instrument_df,instruments):
     x_labels = []
     y_labels = []    
     for token in instrument_df['0']:
@@ -215,7 +215,7 @@ def one_day_1(instrument_df):
 
 
 # %%
-def one_day(instrument_df):    
+def one_day(instrument_df,instruments):    
     x_labels = []
     y_labels = []
     for token in instrument_df['0']:
@@ -463,7 +463,7 @@ for item in Double_bottom['token']:
 
 
 # %%
-def one_hour(instrument_df):
+def one_hour(instrument_df,instruments):
     x_labels = []
     y_labels = []
     for token in instrument_df['token']:
@@ -666,7 +666,7 @@ def one_hour(instrument_df):
 
 
 # %%
-def one_hour_1(instrument_df):
+def one_hour_1(instrument_df,instruments):
     x_labels = []
     y_labels = []
     for token in instrument_df['token']:
@@ -869,7 +869,7 @@ def one_hour_1(instrument_df):
 
 
 # %%
-def half_an_hour(instrument_df):
+def half_an_hour(instrument_df,instruments):
     x_labels = []
     y_labels = []
     for token in instrument_df['token']:
@@ -1072,7 +1072,7 @@ def half_an_hour(instrument_df):
 
 
 # %%
-def half_an_hour_1(instrument_df):
+def half_an_hour_1(instrument_df,instruments):
     x_labels = []
     y_labels = []
     for token in instrument_df['token']:
@@ -1311,12 +1311,12 @@ def main1():
     instrument_df_1 = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/NSE500_tokens.csv")
     instrument_df = pd.read_csv("https://raw.githubusercontent.com/SRIKARREDDY-dotorg/stocktradingapp/main/New_NSE_145.csv")
 
-    t1 = threading.Thread(target=one_hour, args=(instrument_df,))
-    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,))
-    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,))
-    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,))
-    t5 = threading.Thread(target=one_day, args=(instrument_df_1,))
-    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,))
+    t1 = threading.Thread(target=one_hour, args=(instrument_df,instruments,))
+    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,instruments,))
+    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,instruments,))
+    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,instruments,))
+    t5 = threading.Thread(target=one_day, args=(instrument_df_1,instruments,))
+    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,instruments,))
     
     t1.start()
     t2.start()
