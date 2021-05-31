@@ -56,7 +56,7 @@ def one_day_1(instrument_df):
             #print(type(token))
             #try:
                 #print(token)
-                time.sleep(1)
+                sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -260,7 +260,7 @@ def one_day(instrument_df):
             #print(type(token))
             try:
                 #print(token)
-                time.sleep(1)
+                sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -498,7 +498,7 @@ def one_hour(instrument_df):
         #print(type(token))
             try:
                 #print(token)
-                time.sleep(1)
+                sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'60minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -703,7 +703,7 @@ def one_hour_1(instrument_df):
         #print(type(token))
             try:
                 #print(token)
-                time.sleep(1)
+                sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'60minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -908,7 +908,7 @@ def half_an_hour(instrument_df):
         #print(type(token))
             try:
                 #print(token)
-                time.sleep(1)
+                sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'30minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -1113,7 +1113,7 @@ def half_an_hour_1(instrument_df):
         #print(type(token))
             try:
                 #print(token)
-                time.sleep(1)
+                sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'30minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
