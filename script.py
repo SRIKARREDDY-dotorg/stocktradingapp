@@ -607,7 +607,7 @@ def one_hour(instrument_df,instruments):
                                 if ticker_df.low[h]<ticker_df.low[min_index] or ticker_df.low[h]<ticker_df.low[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
 
@@ -810,7 +810,7 @@ def one_hour_1(instrument_df,instruments):
                                 if ticker_df.close[h]<ticker_df.close[min_index] or ticker_df.close[h]<ticker_df.close[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
 
@@ -1013,7 +1013,7 @@ def half_an_hour(instrument_df,instruments):
                                 if ticker_df.low[h]<ticker_df.low[min_index] or ticker_df.low[h]<ticker_df.low[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
 
@@ -1216,7 +1216,7 @@ def half_an_hour_1(instrument_df,instruments):
                                 if ticker_df.close[h]<ticker_df.close[min_index] or ticker_df.close[h]<ticker_df.close[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
 
