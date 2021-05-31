@@ -6,14 +6,14 @@ import requests
 from pandas.plotting import table
 # ___library_import_statements___
 import pandas as pd
-import telegram
+
 import requests
 # for pandas_datareader, otherwise it might have issues, sometimes there is some version mismatch
 
 #import pandas_datareader.data as web
 import numpy as np  
 import matplotlib.pyplot as plt
-import seaborn as sns
+
 import datetime
 import time
 import os
