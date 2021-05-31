@@ -37,7 +37,7 @@ user = json.loads(open('userzerodha.json', 'r').read().rstrip())
 print(user)
 kite = KiteExt()
 kite.login_with_credentials(
-    userid=user['user_id'], password=user['password'], twofa=user['twofa'])
+    userid=user['user_id'], password=user['password'], twofa=user['pin'])
 print(kite.profile())
 
 enctoken = open('enctoken.txt', 'r').read().rstrip()
