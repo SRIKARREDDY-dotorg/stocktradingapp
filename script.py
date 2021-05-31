@@ -12,14 +12,14 @@ import threading
 import requests
 import matplotlib.pyplot as plt
 from pandas.plotting import table
-# %%
+
 def one_day_1(instrument_df,instruments):
     x_labels = []
     y_labels = []    
     for token in instrument_df['0']:
         #print(type(token))
         try:
-            #print(token)
+            print(token)
             df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
             ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
             ticker_df = ticker_df.reset_index()
@@ -63,9 +63,9 @@ def one_day_1(instrument_df,instruments):
                 u_bound = element + delta                    # upper bound (right)
                 x_range = range(l_bound, u_bound + 1)        # range of x positions where we SUSPECT to find a low
                 dict_x[element] = x_range                    # just helpful dictionary that holds suspected x ranges for further visualization strips
-
+                
                 #print('x_range: ', x_range)
-
+                
                 y_loc_list = list()
                 for x_element in x_range:
                     #print('-----------------')
@@ -89,19 +89,19 @@ def one_day_1(instrument_df,instruments):
             for key in dict_i.keys():                     # for suspected minimum x position  
                 mn = sum(dict_i[key])/len(dict_i[key])    # this is averaging out the price around that suspected minimum
                                                         # if the range of days is too high the average will not make much sense
-
+                    
                 price_min = min(dict_i[key])    
                 mini.append(price_min)                    # lowest value for price around suspected 
-
+                
                 l_y = mn * (1.0 - y_delta)                #these values are trying to get an U shape, but it is kinda useless 
                 u_y = mn * (1.0 + y_delta)
                 y_dict[key] = [l_y, u_y, mn, price_min]
-
+                
             #print('y_dict: ') 
             #print(y_dict) 
 
             #print('SCREENING FOR DOUBLE BOTTOM:')    
-
+                
             for key_i in y_dict.keys():    
                 for key_j in y_dict.keys():    
                     if (key_i != key_j) and (y_dict[key_i][3] < threshold):
@@ -149,7 +149,7 @@ def one_day_1(instrument_df,instruments):
                                                 min_loc = ticker_df.low[suspected_bottoms[i-1-l]]
                                                 min_index = suspected_bottoms[i-1-l]
                                                 #print(min_index)
-
+                            
                 flag=1
                 if min_index!=None:
                         #print(min_index)
@@ -159,20 +159,20 @@ def one_day_1(instrument_df,instruments):
                                     break
                         if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=50:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
-
-
-
+                            
+                
+                    
             #print(test)
             # ___ plotting ___
-
-
+            
+            
             #print(double_suspect)
             list1 = []
             list2 = []
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -211,7 +211,6 @@ def one_day_1(instrument_df,instruments):
             if(item==val):
                 stock.append(key)  
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
-    #print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_day_Double_bottom_new_low.csv")
 
 
@@ -222,7 +221,7 @@ def one_day(instrument_df,instruments):
     for token in instrument_df['0']:
         #print(type(token))
         try:
-            #print(token)
+            print(token)
             df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
             ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
             ticker_df = ticker_df.reset_index()
@@ -266,9 +265,9 @@ def one_day(instrument_df,instruments):
                 u_bound = element + delta                    # upper bound (right)
                 x_range = range(l_bound, u_bound + 1)        # range of x positions where we SUSPECT to find a low
                 dict_x[element] = x_range                    # just helpful dictionary that holds suspected x ranges for further visualization strips
-
+                
                 #print('x_range: ', x_range)
-
+                
                 y_loc_list = list()
                 for x_element in x_range:
                     #print('-----------------')
@@ -292,19 +291,19 @@ def one_day(instrument_df,instruments):
             for key in dict_i.keys():                     # for suspected minimum x position  
                 mn = sum(dict_i[key])/len(dict_i[key])    # this is averaging out the price around that suspected minimum
                                                         # if the range of days is too high the average will not make much sense
-
+                    
                 price_min = min(dict_i[key])    
                 mini.append(price_min)                    # lowest value for price around suspected 
-
+                
                 l_y = mn * (1.0 - y_delta)                #these values are trying to get an U shape, but it is kinda useless 
                 u_y = mn * (1.0 + y_delta)
                 y_dict[key] = [l_y, u_y, mn, price_min]
-
+                
             #print('y_dict: ') 
             #print(y_dict) 
 
             #print('SCREENING FOR DOUBLE BOTTOM:')    
-
+                
             for key_i in y_dict.keys():    
                 for key_j in y_dict.keys():    
                     if (key_i != key_j) and (y_dict[key_i][3] < threshold):
@@ -352,7 +351,7 @@ def one_day(instrument_df,instruments):
                                                 min_loc = ticker_df.close[suspected_bottoms[i-1-l]]
                                                 min_index = suspected_bottoms[i-1-l]
                                                 #print(min_index)
-
+                            
                 flag=1
                 if min_index!=None:
                         #print(min_index)
@@ -363,20 +362,20 @@ def one_day(instrument_df,instruments):
                         if flag and (datetime.datetime.now().date() - (ticker_df['date'][min_index]).date()).days<=50:
                             print(min_index,suspected_bottoms[i])
                             double_suspect.extend([min_index,suspected_bottoms[i]])
-
-
-
+                            
+                
+                    
             #print(test)
             # ___ plotting ___
-
-
+            
+            
             #print(double_suspect)
             list1 = []
             list2 = []
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -395,7 +394,7 @@ def one_day(instrument_df,instruments):
             #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
             #for item in y_labels:
                 #print(y_pol[item-1],end=' ')
-
+            
         except:
             pass
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
@@ -416,7 +415,6 @@ def one_day(instrument_df,instruments):
             if(item==val):
                 stock.append(key)  
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
-    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_day_Double_bottom_new_close.csv")
 
 
@@ -471,7 +469,7 @@ def one_hour(instrument_df,instruments):
     for token in instrument_df['token']:
     #print(type(token))
         try:
-            #print(token)
+            print(token)
             df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'60minute') 
             ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
             ticker_df = ticker_df.reset_index()
@@ -515,9 +513,9 @@ def one_hour(instrument_df,instruments):
                 u_bound = element + delta                    # upper bound (right)
                 x_range = range(l_bound, u_bound + 1)        # range of x positions where we SUSPECT to find a low
                 dict_x[element] = x_range                    # just helpful dictionary that holds suspected x ranges for further visualization strips
-
+                
                 #print('x_range: ', x_range)
-
+                
                 y_loc_list = list()
                 for x_element in x_range:
                     #print('-----------------')
@@ -541,19 +539,19 @@ def one_hour(instrument_df,instruments):
             for key in dict_i.keys():                     # for suspected minimum x position  
                 mn = sum(dict_i[key])/len(dict_i[key])    # this is averaging out the price around that suspected minimum
                                                         # if the range of days is too high the average will not make much sense
-
+                    
                 price_min = min(dict_i[key])    
                 mini.append(price_min)                    # lowest value for price around suspected 
-
+                
                 l_y = mn * (1.0 - y_delta)                #these values are trying to get an U shape, but it is kinda useless 
                 u_y = mn * (1.0 + y_delta)
                 y_dict[key] = [l_y, u_y, mn, price_min]
-
+                
             #print('y_dict: ') 
             #print(y_dict) 
 
             #print('SCREENING FOR DOUBLE BOTTOM:')    
-
+                
             for key_i in y_dict.keys():    
                 for key_j in y_dict.keys():    
                     if (key_i != key_j) and (y_dict[key_i][3] < threshold):
@@ -601,7 +599,7 @@ def one_hour(instrument_df,instruments):
                                                 min_loc = ticker_df.low[suspected_bottoms[i-1-l]]
                                                 min_index = suspected_bottoms[i-1-l]
                                                 #print(min_index)
-
+                            
                 flag=1
                 if min_index!=None:
                         #print(min_index)
@@ -609,22 +607,22 @@ def one_hour(instrument_df,instruments):
                                 if ticker_df.low[h]<ticker_df.low[min_index] or ticker_df.low[h]<ticker_df.low[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
-
-
-
+                            
+                
+                    
             #print(test)
             # ___ plotting ___
-
-
+            
+            
             #print(double_suspect)
             list1 = []
             list2 = []
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<100:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=5:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -643,11 +641,11 @@ def one_hour(instrument_df,instruments):
             #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
             #for item in y_labels:
                 #print(y_pol[item-1],end=' ')
-
+            
         except:
             pass
     Double_bottom = pd.DataFrame({'Date':x_labels,'token':y_labels})
-
+    
     tokenName = {}
     #instrument_df
     for x in instrument_df['symbol']:
@@ -662,7 +660,6 @@ def one_hour(instrument_df,instruments):
             if(item==val):
                 stock.append(key)
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
-    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_hour_Double_bottom_new_low.csv")
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
         # print('y_dict:', y_dict)'''
@@ -675,7 +672,7 @@ def one_hour_1(instrument_df,instruments):
     for token in instrument_df['token']:
     #print(type(token))
         try:
-            #print(token)
+            print(token)
             df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'60minute') 
             ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
             ticker_df = ticker_df.reset_index()
@@ -719,9 +716,9 @@ def one_hour_1(instrument_df,instruments):
                 u_bound = element + delta                    # upper bound (right)
                 x_range = range(l_bound, u_bound + 1)        # range of x positions where we SUSPECT to find a low
                 dict_x[element] = x_range                    # just helpful dictionary that holds suspected x ranges for further visualization strips
-
+                
                 #print('x_range: ', x_range)
-
+                
                 y_loc_list = list()
                 for x_element in x_range:
                     #print('-----------------')
@@ -745,19 +742,19 @@ def one_hour_1(instrument_df,instruments):
             for key in dict_i.keys():                     # for suspected minimum x position  
                 mn = sum(dict_i[key])/len(dict_i[key])    # this is averaging out the price around that suspected minimum
                                                         # if the range of days is too high the average will not make much sense
-
+                    
                 price_min = min(dict_i[key])    
                 mini.append(price_min)                    # lowest value for price around suspected 
-
+                
                 l_y = mn * (1.0 - y_delta)                #these values are trying to get an U shape, but it is kinda useless 
                 u_y = mn * (1.0 + y_delta)
                 y_dict[key] = [l_y, u_y, mn, price_min]
-
+                
             #print('y_dict: ') 
             #print(y_dict) 
 
             #print('SCREENING FOR DOUBLE BOTTOM:')    
-
+                
             for key_i in y_dict.keys():    
                 for key_j in y_dict.keys():    
                     if (key_i != key_j) and (y_dict[key_i][3] < threshold):
@@ -805,7 +802,7 @@ def one_hour_1(instrument_df,instruments):
                                                 min_loc = ticker_df.close[suspected_bottoms[i-1-l]]
                                                 min_index = suspected_bottoms[i-1-l]
                                                 #print(min_index)
-
+                            
                 flag=1
                 if min_index!=None:
                         #print(min_index)
@@ -813,22 +810,22 @@ def one_hour_1(instrument_df,instruments):
                                 if ticker_df.close[h]<ticker_df.close[min_index] or ticker_df.close[h]<ticker_df.close[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
-
-
-
+                            
+                
+                    
             #print(test)
             # ___ plotting ___
-
-
+            
+            
             #print(double_suspect)
             list1 = []
             list2 = []
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<100:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=5:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -847,11 +844,11 @@ def one_hour_1(instrument_df,instruments):
             #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
             #for item in y_labels:
                 #print(y_pol[item-1],end=' ')
-
+            
         except:
             pass
     Double_bottom = pd.DataFrame({'Date':x_labels,'token':y_labels})
-
+    
     tokenName = {}
     #instrument_df
     for x in instrument_df['symbol']:
@@ -866,7 +863,6 @@ def one_hour_1(instrument_df,instruments):
             if(item==val):
                 stock.append(key)
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
-    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_hour_Double_bottom_new_close.csv")
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
         # print('y_dict:', y_dict)'''
@@ -879,7 +875,7 @@ def half_an_hour(instrument_df,instruments):
     for token in instrument_df['token']:
     #print(type(token))
         try:
-            #print(token)
+            print(token)
             df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'30minute') 
             ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
             ticker_df = ticker_df.reset_index()
@@ -923,9 +919,9 @@ def half_an_hour(instrument_df,instruments):
                 u_bound = element + delta                    # upper bound (right)
                 x_range = range(l_bound, u_bound + 1)        # range of x positions where we SUSPECT to find a low
                 dict_x[element] = x_range                    # just helpful dictionary that holds suspected x ranges for further visualization strips
-
+                
                 #print('x_range: ', x_range)
-
+                
                 y_loc_list = list()
                 for x_element in x_range:
                     #print('-----------------')
@@ -949,19 +945,19 @@ def half_an_hour(instrument_df,instruments):
             for key in dict_i.keys():                     # for suspected minimum x position  
                 mn = sum(dict_i[key])/len(dict_i[key])    # this is averaging out the price around that suspected minimum
                                                         # if the range of days is too high the average will not make much sense
-
+                    
                 price_min = min(dict_i[key])    
                 mini.append(price_min)                    # lowest value for price around suspected 
-
+                
                 l_y = mn * (1.0 - y_delta)                #these values are trying to get an U shape, but it is kinda useless 
                 u_y = mn * (1.0 + y_delta)
                 y_dict[key] = [l_y, u_y, mn, price_min]
-
+                
             #print('y_dict: ') 
             #print(y_dict) 
 
             #print('SCREENING FOR DOUBLE BOTTOM:')    
-
+                
             for key_i in y_dict.keys():    
                 for key_j in y_dict.keys():    
                     if (key_i != key_j) and (y_dict[key_i][3] < threshold):
@@ -1009,7 +1005,7 @@ def half_an_hour(instrument_df,instruments):
                                                 min_loc = ticker_df.low[suspected_bottoms[i-1-l]]
                                                 min_index = suspected_bottoms[i-1-l]
                                                 #print(min_index)
-
+                            
                 flag=1
                 if min_index!=None:
                         #print(min_index)
@@ -1017,22 +1013,22 @@ def half_an_hour(instrument_df,instruments):
                                 if ticker_df.low[h]<ticker_df.low[min_index] or ticker_df.low[h]<ticker_df.low[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
-
-
-
+                            
+                
+                    
             #print(test)
             # ___ plotting ___
-
-
+            
+            
             #print(double_suspect)
             list1 = []
             list2 = []
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<100:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=5:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -1051,13 +1047,13 @@ def half_an_hour(instrument_df,instruments):
             #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
             #for item in y_labels:
                 #print(y_pol[item-1],end=' ')
-
+            
         except:
             pass
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
         # print('y_dict:', y_dict)'''
     Double_bottom = pd.DataFrame({'Date':x_labels,'token':y_labels})
-
+    
     tokenName = {}
     #instrument_df
     for x in instrument_df['symbol']:
@@ -1082,7 +1078,7 @@ def half_an_hour_1(instrument_df,instruments):
     for token in instrument_df['token']:
     #print(type(token))
         try:
-            #print(token)
+            print(token)
             df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'30minute') 
             ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
             ticker_df = ticker_df.reset_index()
@@ -1126,9 +1122,9 @@ def half_an_hour_1(instrument_df,instruments):
                 u_bound = element + delta                    # upper bound (right)
                 x_range = range(l_bound, u_bound + 1)        # range of x positions where we SUSPECT to find a low
                 dict_x[element] = x_range                    # just helpful dictionary that holds suspected x ranges for further visualization strips
-
+                
                 #print('x_range: ', x_range)
-
+                
                 y_loc_list = list()
                 for x_element in x_range:
                     #print('-----------------')
@@ -1152,19 +1148,19 @@ def half_an_hour_1(instrument_df,instruments):
             for key in dict_i.keys():                     # for suspected minimum x position  
                 mn = sum(dict_i[key])/len(dict_i[key])    # this is averaging out the price around that suspected minimum
                                                         # if the range of days is too high the average will not make much sense
-
+                    
                 price_min = min(dict_i[key])    
                 mini.append(price_min)                    # lowest value for price around suspected 
-
+                
                 l_y = mn * (1.0 - y_delta)                #these values are trying to get an U shape, but it is kinda useless 
                 u_y = mn * (1.0 + y_delta)
                 y_dict[key] = [l_y, u_y, mn, price_min]
-
+                
             #print('y_dict: ') 
             #print(y_dict) 
 
             #print('SCREENING FOR DOUBLE BOTTOM:')    
-
+                
             for key_i in y_dict.keys():    
                 for key_j in y_dict.keys():    
                     if (key_i != key_j) and (y_dict[key_i][3] < threshold):
@@ -1212,7 +1208,7 @@ def half_an_hour_1(instrument_df,instruments):
                                                 min_loc = ticker_df.close[suspected_bottoms[i-1-l]]
                                                 min_index = suspected_bottoms[i-1-l]
                                                 #print(min_index)
-
+                            
                 flag=1
                 if min_index!=None:
                         #print(min_index)
@@ -1220,22 +1216,22 @@ def half_an_hour_1(instrument_df,instruments):
                                 if ticker_df.close[h]<ticker_df.close[min_index] or ticker_df.close[h]<ticker_df.close[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=10:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=5:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
-
-
-
+                            
+                
+                    
             #print(test)
             # ___ plotting ___
-
-
+            
+            
             #print(double_suspect)
             list1 = []
             list2 = []
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<100:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=5:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -1254,13 +1250,13 @@ def half_an_hour_1(instrument_df,instruments):
             #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
             #for item in y_labels:
                 #print(y_pol[item-1],end=' ')
-
+            
         except:
             pass
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
         # print('y_dict:', y_dict)'''
     Double_bottom = pd.DataFrame({'Date':x_labels,'token':y_labels})
-
+    
     tokenName = {}
     #instrument_df
     for x in instrument_df['symbol']:
@@ -1276,6 +1272,7 @@ def half_an_hour_1(instrument_df,instruments):
                 stock.append(key)
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
     Double_bottom_new.to_csv("new_half_an_hour_Double_bottom_new_close.csv")
+
 def main1():
     
     print('Running Algo')
