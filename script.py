@@ -211,6 +211,7 @@ def one_day_1(instrument_df,instruments):
             if(item==val):
                 stock.append(key)  
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
+    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_day_Double_bottom_new_low.csv")
 
 
@@ -415,6 +416,7 @@ def one_day(instrument_df,instruments):
             if(item==val):
                 stock.append(key)  
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
+    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_day_Double_bottom_new_close.csv")
 
 
@@ -660,6 +662,7 @@ def one_hour(instrument_df,instruments):
             if(item==val):
                 stock.append(key)
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
+    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_hour_Double_bottom_new_low.csv")
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
         # print('y_dict:', y_dict)'''
@@ -863,6 +866,7 @@ def one_hour_1(instrument_df,instruments):
             if(item==val):
                 stock.append(key)
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
+    print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_hour_Double_bottom_new_close.csv")
         # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
         # print('y_dict:', y_dict)'''
