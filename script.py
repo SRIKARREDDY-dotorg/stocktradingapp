@@ -157,7 +157,7 @@ def one_day_1(instrument_df,instruments):
                                 if ticker_df.low[h]<ticker_df.low[min_index] or ticker_df.low[h]<ticker_df.low[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=20:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=50:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
 
@@ -359,7 +359,7 @@ def one_day(instrument_df,instruments):
                                 if ticker_df.close[h]<ticker_df.close[min_index] or ticker_df.close[h]<ticker_df.close[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][min_index]).date()).days<=20:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][min_index]).date()).days<=50:
                             print(min_index,suspected_bottoms[i])
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
