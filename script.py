@@ -10,8 +10,8 @@ import os
 import numpy as np
 import threading
 import requests
-    
-
+import matplotlib.pyplot as plt
+from pandas.plotting import table
 # %%
 def one_day_1(instrument_df,instruments):
     x_labels = []
@@ -157,7 +157,7 @@ def one_day_1(instrument_df,instruments):
                                 if ticker_df.low[h]<ticker_df.low[min_index] or ticker_df.low[h]<ticker_df.low[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=50:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][suspected_bottoms[i]]).date()).days<=20:
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
 
@@ -172,7 +172,7 @@ def one_day_1(instrument_df,instruments):
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<100:
+                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -359,7 +359,7 @@ def one_day(instrument_df,instruments):
                                 if ticker_df.close[h]<ticker_df.close[min_index] or ticker_df.close[h]<ticker_df.close[suspected_bottoms[i]]:
                                     flag=0
                                     break
-                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][min_index]).date()).days<=50:
+                        if flag and (datetime.datetime.now().date() - (ticker_df['date'][min_index]).date()).days<=20:
                             print(min_index,suspected_bottoms[i])
                             double_suspect.extend([min_index,suspected_bottoms[i]])
 
@@ -1331,35 +1331,90 @@ def main1():
     t4.join()
     t5.join()
     t6.join()
-    files = {'document':open('new_1_hour_Double_bottom_new_close.csv','rb')}
     todays = datetime.datetime.now()
     today = todays.strftime('%Y-%m-%d %H:%M:%S')
-    resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
-    print("documents sent",resp.status_code)
+    df=pd.read_csv('new_1_hour_Double_bottom_new_close.csv')
+    ax = plt.subplot(111, frame_on=False) # no visible frame
+    ax.xaxis.set_visible(False)  # hide the x axis
+    ax.yaxis.set_visible(False)  # hide the y axis
+    if(not df.empty):
+        table(ax, df, rowLabels=['']*df.shape[0], loc='center')  # where df is your data frame
 
-    files = {'document':open('new_1_hour_Double_bottom_new_low.csv','rb')}
-    resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
-    print("documents sent",resp.status_code)
+        plt.savefig('mytable.png')
+        files = {'photo':open('mytable.png','rb')}
+        resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-1001253024203&caption={}'.format(today+'_1hour_close'),files=files)
+        print("documents sent",resp.status_code)
+    df=pd.read_csv('new_1_hour_Double_bottom_new_low.csv')
+    ax = plt.subplot(111, frame_on=False) # no visible frame
+    ax.xaxis.set_visible(False)  # hide the x axis
+    ax.yaxis.set_visible(False)  # hide the y axis
 
-    files = {'document':open('new_half_an_hour_Double_bottom_new_close.csv','rb')}
-    resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
-    print("documents sent",resp.status_code)
+    if(not df.empty):
 
-    files = {'document':open('new_half_an_hour_Double_bottom_new_low.csv','rb')}
-    resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
-    print("documents sent",resp.status_code)
+        table(ax, df, rowLabels=['']*df.shape[0], loc='center')  # where df is your data frame
+
+        plt.savefig('mytable.png')
+        files = {'photo':open('mytable.png','rb')}
+        resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-1001253024203&caption={}'.format(today+'_1hour_low'),files=files)
+        print("documents sent",resp.status_code)
+
+    df=pd.read_csv('new_half_an_hour_Double_bottom_new_close.csv')
+    ax = plt.subplot(111, frame_on=False) # no visible frame
+    ax.xaxis.set_visible(False)  # hide the x axis
+    ax.yaxis.set_visible(False)  # hide the y axis
+
+    if(not df.empty):
+        table(ax, df, rowLabels=['']*df.shape[0], loc='center')  # where df is your data frame
+
+        plt.savefig('mytable.png')
+        files = {'photo':open('mytable.png','rb')}
+        resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-1001253024203&caption={}'.format(today+'_half_an_hour_close'),files=files)
+        print("documents sent",resp.status_code)
+
+    df=pd.read_csv('new_half_an_hour_Double_bottom_new_low.csv')
+    ax = plt.subplot(111, frame_on=False) # no visible frame
+    ax.xaxis.set_visible(False)  # hide the x axis
+    ax.yaxis.set_visible(False)  # hide the y axis
+
+    if(not df.empty):
+
+        table(ax, df, rowLabels=['']*df.shape[0], loc='center')  # where df is your data frame
+
+        plt.savefig('mytable.png')
+        files = {'photo':open('mytable.png','rb')}
+        resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-1001253024203&caption={}'.format(today+'_half_an_hour_low'),files=files)
+        print("documents sent",resp.status_code)
 
     Time = todays.time()
     Time = Time.strftime('%H:%M:%S')
 
     if(Time>='15:10:00'):
-        files = {'document':open('new_1_day_Double_bottom_new_close.csv','rb')}
-        resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
-        print("documents sent",resp.status_code)
+        df=pd.read_csv('new_1_day_Double_bottom_new_close.csv')
+        ax = plt.subplot(111, frame_on=False) # no visible frame
+        ax.xaxis.set_visible(False)  # hide the x axis
+        ax.yaxis.set_visible(False)  # hide the y axis
+        if(not df.empty):
 
-        files = {'document':open('new_1_day_Double_bottom_new_low.csv','rb')}
-        resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendDocument?chat_id=-1001253024203&caption={}'.format(today),files=files)
-        print("documents sent",resp.status_code)
+            table(ax, df, rowLabels=['']*df.shape[0], loc='center')  # where df is your data frame
+
+            plt.savefig('mytable.png')
+            files = {'photo':open('mytable.png','rb')}
+            resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-1001253024203&caption={}'.format(today+'_1day_close'),files=files)
+            print("documents sent",resp.status_code)
+
+        df=pd.read_csv('new_1_day_Double_bottom_new_low.csv')
+        ax = plt.subplot(111, frame_on=False) # no visible frame
+        ax.xaxis.set_visible(False)  # hide the x axis
+        ax.yaxis.set_visible(False)  # hide the y axis
+
+        if(not df.empty):
+
+            table(ax, df, rowLabels=['']*df.shape[0], loc='center')  # where df is your data frame
+
+            plt.savefig('mytable.png')
+            files = {'photo':open('mytable.png','rb')}
+            resp = requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-1001253024203&caption={}'.format(today+'_1day_low'),files=files)
+            print("documents sent",resp.status_code)
 
     
 
