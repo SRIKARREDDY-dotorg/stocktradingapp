@@ -1309,12 +1309,12 @@ def main1():
     instrument_df_1 = pd.read_csv("NSE500_tokens.csv")
     instrument_df = pd.read_csv('New_NSE_145.csv')
   
-    t1 = threading.Thread(target=one_hour, args=(instrument_df,instruments,kite,))
-    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,instruments,kite,))
-    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,instruments,kite,))
-    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,instruments,kite,))
-    t5 = threading.Thread(target=one_day, args=(instrument_df_1,instruments,kite,))
-    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,instruments,kite,))
+    t1 = threading.Thread(target=one_hour, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
+    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
+    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
+    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
+    t5 = threading.Thread(target=one_day, args=(instrument_df_1,instruments,kite,true_range_startdt,true_range_enddt,))
+    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,instruments,kite,true_range_startdt,true_range_enddt,))
     
     t1.start()
     t2.start()
