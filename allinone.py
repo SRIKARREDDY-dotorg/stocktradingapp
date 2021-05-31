@@ -1,11 +1,7 @@
 # To add a new cell, type '# %%'
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
-from IPython import get_ipython
 
-# %%
-from IPython.core.display import display, HTML
-display(HTML("<style>.container { width:100% !important; }</style>"))
 import requests
 from pandas.plotting import table
 # ___library_import_statements___
@@ -13,7 +9,7 @@ import pandas as pd
 import telegram
 import requests
 # for pandas_datareader, otherwise it might have issues, sometimes there is some version mismatch
-pd.core.common.is_list_like = pd.api.types.is_list_like
+
 #import pandas_datareader.data as web
 import numpy as np  
 import matplotlib.pyplot as plt
@@ -21,7 +17,7 @@ import seaborn as sns
 import datetime
 import time
 import os
-print(os.getcwd())
+
 from kiteext import KiteExt
 import json
 import logging
