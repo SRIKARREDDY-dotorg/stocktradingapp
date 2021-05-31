@@ -433,23 +433,11 @@ def one_day(instrument_df,instruments):
 
     # %%
 
-    '''tokenName = {}
-    #instrument_df
-    for x in instrument_df['Unnamed: 0']:
-        for y in instruments:
-            if(y['tradingsymbol']==x):
-                tokenName[x] =y['instrument_token']
-    #tokenName'''
+    
 
 
     # %%
-    '''stock = []
-    for item in Double_bottom['token']:
-        print(item)
-        for key,val in tokenName.items():
-            if(item==val):
-                stock.append(key)  '''
-
+    
 
     # %%
     #Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
