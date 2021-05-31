@@ -167,7 +167,7 @@ def one_day_1(instrument_df,instruments):
                 # ___ plotting ___
                 
                 
-                #print(double_suspect)
+                print(double_suspect)
                 list1 = []
                 list2 = []
                 if len(double_suspect)>1:
