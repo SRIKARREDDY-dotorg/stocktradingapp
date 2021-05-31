@@ -172,7 +172,7 @@ def one_day_1(instrument_df,instruments):
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -211,7 +211,7 @@ def one_day_1(instrument_df,instruments):
             if(item==val):
                 stock.append(key)  
     Double_bottom_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
-    print(Double_bottom_new)
+    #print(Double_bottom_new)
     Double_bottom_new.to_csv("new_1_day_Double_bottom_new_low.csv")
 
 
@@ -376,7 +376,7 @@ def one_day(instrument_df,instruments):
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<100:
+                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -1303,7 +1303,7 @@ def main1():
     kite.set_headers(enctoken)
     instruments = kite.instruments(exchange="NSE")
     
-    true_range_startdt = datetime.datetime.now() - timedelta(days=200)
+    true_range_startdt = datetime.datetime.now() - timedelta(days=100)
     true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
     true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
 
