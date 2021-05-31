@@ -14,12 +14,12 @@ import requests
     
 
 # %%
-def one_day_1(instrument_df,instruments):
+def one_day_1(instrument_df,instruments,kite):
         x_labels = []
         y_labels = []    
         for token in instrument_df['0']:
             #print(type(token))
-            #try:
+            try:
                 #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
@@ -192,8 +192,8 @@ def one_day_1(instrument_df,instruments):
                 #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
                 #for item in y_labels:
                     #print(y_pol[item-1],end=' ')
-            #except:
-                #pass    
+            except:
+                pass    
             # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
             # print('y_dict:', y_dict)'''
         Double_bottom = pd.DataFrame({'Date':x_labels,'token':y_labels})
@@ -217,7 +217,7 @@ def one_day_1(instrument_df,instruments):
 
 
     # %%
-def one_day(instrument_df,instruments):    
+def one_day(instrument_df,instruments,kite):    
         x_labels = []
         y_labels = []
         for token in instrument_df['0']:
@@ -454,7 +454,7 @@ def one_day(instrument_df,instruments):
 
 
     # %%
-def one_hour(instrument_df,instruments):
+def one_hour(instrument_df,instruments,kite):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -658,7 +658,7 @@ def one_hour(instrument_df,instruments):
 
 
     # %%
-def one_hour_1(instrument_df,instruments):
+def one_hour_1(instrument_df,instruments,kite):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -862,7 +862,7 @@ def one_hour_1(instrument_df,instruments):
 
 
     # %%
-def half_an_hour(instrument_df,instruments):
+def half_an_hour(instrument_df,instruments,kite):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -1066,7 +1066,7 @@ def half_an_hour(instrument_df,instruments):
 
 
     # %%
-def half_an_hour_1(instrument_df,instruments):
+def half_an_hour_1(instrument_df,instruments,kite):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -1309,12 +1309,12 @@ def main1():
     instrument_df_1 = pd.read_csv("NSE500_tokens.csv")
     instrument_df = pd.read_csv('New_NSE_145.csv')
   
-    t1 = threading.Thread(target=one_hour, args=(instrument_df,instruments,))
-    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,instruments,))
-    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,instruments,))
-    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,instruments,))
-    t5 = threading.Thread(target=one_day, args=(instrument_df_1,instruments,))
-    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,instruments,))
+    t1 = threading.Thread(target=one_hour, args=(instrument_df,instruments,kite,))
+    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,instruments,kite,))
+    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,instruments,kite,))
+    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,instruments,kite,))
+    t5 = threading.Thread(target=one_day, args=(instrument_df_1,instruments,kite,))
+    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,instruments,kite,))
     
     t1.start()
     t2.start()
