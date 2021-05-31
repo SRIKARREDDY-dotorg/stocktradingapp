@@ -41,11 +41,8 @@ kite.login_with_credentials(
 print(kite.profile())
 
 enctoken = open('enctoken.txt', 'r').read().rstrip()
-print(os.getcwd(),enctoken)
-kite = KiteExt()
-
 print(enctoken)
-kite = KiteExt()
+
 kite.set_headers(enctoken)
 ##print(kite.profile())
 instruments = kite.instruments(exchange="NSE")
