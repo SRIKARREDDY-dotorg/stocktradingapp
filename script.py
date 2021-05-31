@@ -1,12 +1,12 @@
 
 import asyncio
-# from datetime import datetime
+from datetime import timedelta,time,date
 
 from kiteext import KiteExt
 import json
 import pandas as pd
 from time import sleep
-import datetime as dt
+import datetime 
 import os
 import numpy as np
 import threading
@@ -1384,13 +1384,13 @@ def main():
 
     f = open("last_executed.txt", "r")
    
-    last_run_date = dt.datetime.strptime(f.read(), "%d-%m-%y").date()
-    if dt.datetime.now().date() >= last_run_date:
+    last_run_date = datetime.datetime.strptime(f.read(), "%d-%m-%y").date()
+    if datetime.datetime.now().date() >= last_run_date:
         foo()
         #print("I didn't wait for foo()")
 
         f = open("last_executed.txt", "w")
-        f.write(dt.datetime.now().strftime("%d-%m-%y"))
+        f.write(datetime.datetime.now().strftime("%d-%m-%y"))
         f.close()
     
     return "This is good"
