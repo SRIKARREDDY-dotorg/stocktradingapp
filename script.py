@@ -56,6 +56,7 @@ def one_day_1(instrument_df):
             #print(type(token))
             #try:
                 #print(token)
+                time.sleep(1)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
