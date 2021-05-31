@@ -172,7 +172,7 @@ def one_day_1(instrument_df,instruments):
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
+                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
@@ -376,7 +376,7 @@ def one_day(instrument_df,instruments):
             if len(double_suspect)>1:
                 for position in double_suspect:
                 #print((datetime.datetime.now().date() - (ticker_df['date'][position-1]).date()).days)
-                    if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
+                    #if (datetime.datetime.now() - (ticker_df['date'][position])).days<=10:
                     #print(position)
                         list1.append(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
                     #print(ticker_df['date'][position].strftime('%Y-%m-%d %H:%M:%S'))
