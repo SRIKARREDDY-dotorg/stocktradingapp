@@ -1,11 +1,11 @@
 from flask import Flask
-import script
+import allinone
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return script.main()
+    return allinone
 
 if __name__ == '__main__':
     app.run()
