@@ -12,9 +12,44 @@ import numpy as np
 import threading
 import requests
     
+user = json.loads(open('userzerodha.json', 'r').read().rstrip())
+
+# NOTE contents of above 'userzerodha.json' must be as below
+# {
+#     "user_id": "AB1234",
+#     "password": "P@ssW0RD",
+#     "pin": "123456"
+# }
+
+kite = KiteExt()
+kite.login_with_credentials(
+    userid=user['user_id'], password=user['password'], pin=user['pin'])
+
+profile = kite.profile()
+print( '\nlogin successful for ',profile['user_name'].upper(),'\n')
+
+print(profile)
+enctoken = open('enctoken.txt', 'r').read().rstrip()
+print(os.getcwd(),enctoken)
+
+
+print(enctoken)
+#code whatever logic you want for the running here
+kite.set_headers(enctoken)
+instruments = kite.instruments(exchange="NSE")
+
+true_range_startdt = datetime.datetime.now() - timedelta(days=150)
+true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
+true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
+
+true_range_enddt = datetime.datetime.now() 
+true_range_enddt = true_range_enddt.replace(hour = 15,minute=29,second=59)
+true_range_enddt = true_range_enddt.strftime('%Y-%m-%d %H:%M:%S')
+
+print(true_range_startdt,true_range_enddt)
 
 # %%
-def one_day_1(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):
+def one_day_1(instrument_df):
         x_labels = []
         y_labels = []    
         for token in instrument_df['0']:
@@ -217,7 +252,7 @@ def one_day_1(instrument_df,instruments,kite,true_range_startdt,true_range_enddt
 
 
     # %%
-def one_day(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):    
+def one_day(instrument_df):    
         x_labels = []
         y_labels = []
         for token in instrument_df['0']:
@@ -454,7 +489,7 @@ def one_day(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):
 
 
     # %%
-def one_hour(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):
+def one_hour(instrument_df):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -658,7 +693,7 @@ def one_hour(instrument_df,instruments,kite,true_range_startdt,true_range_enddt)
 
 
     # %%
-def one_hour_1(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):
+def one_hour_1(instrument_df):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -862,7 +897,7 @@ def one_hour_1(instrument_df,instruments,kite,true_range_startdt,true_range_endd
 
 
     # %%
-def half_an_hour(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):
+def half_an_hour(instrument_df):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -1066,7 +1101,7 @@ def half_an_hour(instrument_df,instruments,kite,true_range_startdt,true_range_en
 
 
     # %%
-def half_an_hour_1(instrument_df,instruments,kite,true_range_startdt,true_range_enddt):
+def half_an_hour_1(instrument_df):
         x_labels = []
         y_labels = []
         for token in instrument_df['token']:
@@ -1271,50 +1306,15 @@ def half_an_hour_1(instrument_df,instruments,kite,true_range_startdt,true_range_
 def main1():
     
     print('Running Algo')
-    user = json.loads(open('userzerodha.json', 'r').read().rstrip())
-
-    # NOTE contents of above 'userzerodha.json' must be as below
-    # {
-    #     "user_id": "AB1234",
-    #     "password": "P@ssW0RD",
-    #     "pin": "123456"
-    # }
-
-    kite = KiteExt()
-    kite.login_with_credentials(
-        userid=user['user_id'], password=user['password'], pin=user['pin'])
-
-    profile = kite.profile()
-    print( '\nlogin successful for ',profile['user_name'].upper(),'\n')
-
-    print(profile)
-    enctoken = open('enctoken.txt', 'r').read().rstrip()
-    print(os.getcwd(),enctoken)
-    
-
-    print(enctoken)
-    #code whatever logic you want for the running here
-    kite.set_headers(enctoken)
-    instruments = kite.instruments(exchange="NSE")
-
-    true_range_startdt = datetime.datetime.now() - timedelta(days=150)
-    true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
-    true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
-
-    true_range_enddt = datetime.datetime.now() 
-    true_range_enddt = true_range_enddt.replace(hour = 15,minute=29,second=59)
-    true_range_enddt = true_range_enddt.strftime('%Y-%m-%d %H:%M:%S')
-
-    print(true_range_startdt,true_range_enddt)
     instrument_df_1 = pd.read_csv("NSE500_tokens.csv")
     instrument_df = pd.read_csv('New_NSE_145.csv')
   
-    t1 = threading.Thread(target=one_hour, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
-    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
-    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
-    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,instruments,kite,true_range_startdt,true_range_enddt,))
-    t5 = threading.Thread(target=one_day, args=(instrument_df_1,instruments,kite,true_range_startdt,true_range_enddt,))
-    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,instruments,kite,true_range_startdt,true_range_enddt,))
+    t1 = threading.Thread(target=one_hour, args=(instrument_df,))
+    t2 = threading.Thread(target=one_hour_1, args=(instrument_df,))
+    t3 = threading.Thread(target=half_an_hour, args=(instrument_df,))
+    t4 = threading.Thread(target=half_an_hour_1, args=(instrument_df,))
+    t5 = threading.Thread(target=one_day, args=(instrument_df_1,))
+    t6 = threading.Thread(target=one_day_1, args=(instrument_df_1,))
     
     t1.start()
     t2.start()
