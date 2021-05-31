@@ -60,7 +60,7 @@ def main1():
         for token in instrument_df['0']:
             #print(type(token))
             try:
-                print(token)
+                #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -262,7 +262,7 @@ def main1():
         for token in instrument_df['0']:
             #print(type(token))
             try:
-                print(token)
+                #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -510,7 +510,7 @@ def main1():
         for token in instrument_df['token']:
         #print(type(token))
             try:
-                print(token)
+                #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'60minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -713,7 +713,7 @@ def main1():
         for token in instrument_df['token']:
         #print(type(token))
             try:
-                print(token)
+                #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'60minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -916,7 +916,7 @@ def main1():
         for token in instrument_df['token']:
         #print(type(token))
             try:
-                print(token)
+                #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'30minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
@@ -1119,7 +1119,7 @@ def main1():
         for token in instrument_df['token']:
         #print(type(token))
             try:
-                print(token)
+                #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'30minute') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
                 ticker_df = ticker_df.reset_index()
