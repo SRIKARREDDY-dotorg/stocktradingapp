@@ -19,7 +19,7 @@ def one_day_1(instrument_df,instruments,kite,true_range_startdt,true_range_enddt
         y_labels = []    
         for token in instrument_df['0']:
             #print(type(token))
-            try:
+            #try:
                 #print(token)
                 df_hist=kite.historical_data(token,true_range_startdt,true_range_enddt,'day') 
                 ticker_df=pd.DataFrame.from_dict(df_hist, orient='columns', dtype=None)
@@ -192,8 +192,8 @@ def one_day_1(instrument_df,instruments,kite,true_range_startdt,true_range_enddt
                 #Double_bottom = pd.DataFrame({'Date':x_labels,'token':[token,token]})
                 #for item in y_labels:
                     #print(y_pol[item-1],end=' ')
-            except:
-                pass    
+            #except:
+                #pass    
             # print('dict_x: ', dict_x)   # this dictionary is holding the values of the suspected low price
             # print('y_dict:', y_dict)'''
         Double_bottom = pd.DataFrame({'Date':x_labels,'token':y_labels})
@@ -1297,7 +1297,7 @@ def main1():
     kite.set_headers(enctoken)
     instruments = kite.instruments(exchange="NSE")
 
-    true_range_startdt = datetime.datetime.now() - timedelta(days=300)
+    true_range_startdt = datetime.datetime.now() - timedelta(days=150)
     true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
     true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
 
