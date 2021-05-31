@@ -39,8 +39,7 @@ def main1():
     #code whatever logic you want for the running here
     kite.set_headers(enctoken)
     instruments = kite.instruments(exchange="NSE")
-    from datetime import timedelta,time,date
-    import datetime
+
     true_range_startdt = datetime.datetime.now() - timedelta(days=200)
     true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
     true_range_startdt = true_range_startdt.strftime('%Y-%m-%d %H:%M:%S')
