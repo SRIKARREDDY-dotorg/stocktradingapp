@@ -56,7 +56,7 @@ def main1():
     DATABASE={}
     for token in instrument_df['token']:
         df_hist_day=kite.historical_data(token,true_range_startdt,true_range_enddt,'day')
-        #print(data)
+        print(data)
         DATABASE[token] = pd.DataFrame(df_hist_day)
     def levels(ohlc_day):    
         #print(ohlc_day["high"].iloc[-1])
