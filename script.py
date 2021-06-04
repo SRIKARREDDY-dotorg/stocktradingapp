@@ -53,6 +53,7 @@ def main1():
     print(true_range_startdt,true_range_enddt)
     #instrument_df_1 = pd.read_csv("NSE500_tokens.csv")
     instrument_df = pd.read_csv('New_NSE_145.csv')
+    print(instrument_df.head())
     DATABASE={}
     for token in instrument_df['token']:
         df_hist_day=kite.historical_data(token,true_range_startdt,true_range_enddt,'day')
