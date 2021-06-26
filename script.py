@@ -13,7 +13,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import threading
-from pandas.table.plotting import table
+from pandas.plotting import table
 import requests
 start=datetime.datetime.now()
 def main1():
