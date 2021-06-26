@@ -10,8 +10,10 @@ import json
 import config
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 import numpy as np
 import threading
+from pandas.table.plotting import table
 import requests
 start=datetime.datetime.now()
 def main1():
@@ -46,7 +48,8 @@ def main1():
     ##print(kite.profile())
     instruments = kite.instruments(exchange="NSE")
     
- 
+    today=(datetime.datetime.now()).date()
+    today=today.strftime('%Y-%m-%d')
     true_range_startdt = datetime.datetime.now() - timedelta(days=5)
     startdt = true_range_startdt
     true_range_startdt = true_range_startdt.replace(hour = 9,minute=15,second=0)
@@ -246,7 +249,17 @@ def main1():
             print("stock",item)
       Double_top_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
       Double_top_new.to_csv("new_halfan_hour_Double_peak_new_open.csv")
-
+      df=Double_top_new
+      ax = plt.subplot(111, frame_on=False) # no visible frame
+      ax.xaxis.set_visible(False)  # hide the x axis
+      ax.yaxis.set_visible(False)  # hide the y axis
+      table(ax, df, rowLabels=['']*df.shape[0], loc='center')
+      plt.savefig('mytable.png')
+      
+      files={'photo':open('mytable.png')}
+      resp=requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-418248825&caption={}'.format('halfanhour_doublepeak_open '+today),files=files)
+      print(resp.status_code)
+    
     def halfanhour_1(instrument_df):
       x_labels = []
       y_labels = []
@@ -432,6 +445,17 @@ def main1():
             print("stock",item)
       Double_top_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
       Double_top_new.to_csv("new_halfan_hour_Double_peak_new_high.csv")
+      df=Double_top_new
+      ax = plt.subplot(111, frame_on=False) # no visible frame
+      ax.xaxis.set_visible(False)  # hide the x axis
+      ax.yaxis.set_visible(False)  # hide the y axis
+      table(ax, df, rowLabels=['']*df.shape[0], loc='center')
+      plt.savefig('mytable.png')
+      
+      files={'photo':open('mytable.png')}
+      resp=requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-418248825&caption={}'.format('halfanhour_doublepeak_high '+today),files=files)
+      print(resp.status_code)
+    
 
     #token_name=instrument_df[instrument_df['token']==1207553].symbol
     def one_hour(instrument_df):
@@ -619,6 +643,17 @@ def main1():
             print("stock",item)
       Double_top_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
       Double_top_new.to_csv("new_1_hour_Double_peak_new_open.csv")
+      df=Double_top_new
+      ax = plt.subplot(111, frame_on=False) # no visible frame
+      ax.xaxis.set_visible(False)  # hide the x axis
+      ax.yaxis.set_visible(False)  # hide the y axis
+      table(ax, df, rowLabels=['']*df.shape[0], loc='center')
+      plt.savefig('mytable.png')
+      
+      files={'photo':open('mytable.png')}
+      resp=requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-418248825&caption={}'.format('onehour_doublepeak_open '+today),files=files)
+      print(resp.status_code)
+    
 
     def one_hour_1(instrument_df):
       x_labels = []
@@ -805,6 +840,17 @@ def main1():
             print("stock",item)
       Double_top_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
       Double_top_new.to_csv("new_1_hour_Double_peak_new_high.csv")
+      df=Double_top_new
+      ax = plt.subplot(111, frame_on=False) # no visible frame
+      ax.xaxis.set_visible(False)  # hide the x axis
+      ax.yaxis.set_visible(False)  # hide the y axis
+      table(ax, df, rowLabels=['']*df.shape[0], loc='center')
+      plt.savefig('mytable.png')
+      
+      files={'photo':open('mytable.png')}
+      resp=requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-418248825&caption={}'.format('onehour_doublepeak_high '+today),files=files)
+      print(resp.status_code)
+    
 
     # %%
     def one_day(instrument_df_1):
@@ -992,6 +1038,17 @@ def main1():
             print("stock",item)
       Double_top_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
       Double_top_new.to_csv("new_1_day_Double_peak_new_open.csv")
+      df=Double_top_new
+      ax = plt.subplot(111, frame_on=False) # no visible frame
+      ax.xaxis.set_visible(False)  # hide the x axis
+      ax.yaxis.set_visible(False)  # hide the y axis
+      table(ax, df, rowLabels=['']*df.shape[0], loc='center')
+      plt.savefig('mytable.png')
+      
+      files={'photo':open('mytable.png')}
+      resp=requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-418248825&caption={}'.format('oneday_doublepeak_open '+today),files=files)
+      print(resp.status_code)
+    
                     
     def one_day_1(instrument_df_1):
       x_labels = []
@@ -1178,7 +1235,17 @@ def main1():
             print("stock",item)
       Double_top_new = pd.DataFrame({'Date':x_labels,'token':y_labels,'stock':stock})
       Double_top_new.to_csv("new_1_day_Double_peak_new_high.csv")
-                    
+      df=Double_top_new
+      ax = plt.subplot(111, frame_on=False) # no visible frame
+      ax.xaxis.set_visible(False)  # hide the x axis
+      ax.yaxis.set_visible(False)  # hide the y axis
+      table(ax, df, rowLabels=['']*df.shape[0], loc='center')
+      plt.savefig('mytable.png')
+      
+      files={'photo':open('mytable.png')}
+      resp=requests.post('https://api.telegram.org/bot1772481683:AAGCtefuhSLBeRtNdFxRYkLX-a9eG8H5qyY/sendPhoto?chat_id=-418248825&caption={}'.format('oneday_doublepeak_high '+today),files=files)
+      print(resp.status_code)
+            
 
     # %%
     while(datetime.datetime.now(pytz.timezone('Asia/Kolkata'))<datetime.datetime.now(pytz.timezone('Asia/Kolkata')).replace(hour=9,minute=16)):
